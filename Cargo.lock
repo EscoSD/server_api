@@ -3,15 +3,6 @@
 version = 3
 
 [[package]]
-name = "ServerAPI"
-version = "0.1.0"
-dependencies = [
- "rocket 0.5.0",
- "rocket_contrib",
- "serde",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.21.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1462,6 +1453,15 @@ version = "0.6.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "12022b835073e5b11e90a14f86838ceb1c8fb0325b72416845c487ac0fa95e80"
 dependencies = [
+ "serde",
+]
+
+[[package]]
+name = "server_api"
+version = "0.1.0"
+dependencies = [
+ "rocket 0.5.0",
+ "rocket_contrib",
  "serde",
 ]
 

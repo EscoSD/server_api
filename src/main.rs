@@ -3,9 +3,11 @@ extern crate rocket;
 
 use rocket::http::Status;
 use rocket::http::uri::Origin;
+use rocket::response::Redirect;
 
 const HEALTH_PREFIX: Origin<'static> = uri!("/health");
 const TEST_PREFIX: Origin<'static> = uri!("/test");
+const GREETING_PREFIX: Origin<'static> = uri!("/greeting");
 
 #[get("/")]
 fn health() -> Status {
@@ -18,9 +20,18 @@ fn test(param: &str) -> String {
 	String::from(param)
 }
 
+#[get("/<name>")]
+fn greeting(name: &str) -> String {
+	return match name {
+		"esco" | "Esco" | "Escolástico" | "escolástico"
+		| "escolastico" | "Escolastico" => format!("Que maquinote el {name}"),
+		_ => format!("Que pedazo de tolai el {name}")
+	};
+}
+
 #[get("/")]
-fn index() -> String {
-	String::from("El puto Pable")
+fn index() -> Redirect {
+	Redirect::to(HEALTH_PREFIX)
 }
 
 #[launch]
@@ -29,6 +40,7 @@ fn rocket() -> _ {
 		.mount("/", routes![index])
 		.mount(HEALTH_PREFIX, routes![health])
 		.mount(TEST_PREFIX, routes![test])
+		.mount(GREETING_PREFIX, routes![greeting])
 }
 
 
